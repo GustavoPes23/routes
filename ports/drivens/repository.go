@@ -1,6 +1,6 @@
 package drivens
 
-import "trilha/internal/domain"
+import "trilha/domain"
 
 type RouteRepository interface {
 	GetAllRoutes() ([]domain.Route, error)

@@ -1,6 +1,6 @@
 package services
 
-import "trilha/internal/domain"
+import "trilha/domain"
 
 type RouteService struct {
 	Repo domain.RouteRepository

@@ -2,7 +2,7 @@ package repository
 
 import (
 	"errors"
-	"trilha/internal/domain"
+	"trilha/domain"
 )
 
 type RouteRepository struct {

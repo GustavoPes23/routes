@@ -1,3 +1,11 @@
-/.vercel/
-*.test.go
-*.tmp.go
+# Ignorar diretórios de testes
+test/
+tests/
+
+# Ignorar arquivos temporários
+*.log
+*.tmp
+*.bak
+
+# Ignorar o arquivo bombad.go
+bombad.go

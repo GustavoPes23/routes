@@ -1,9 +1,8 @@
 {
   "version": 2,
   "functions": {
-    "vercel-functions/index.go": {
-      "runtime": "go1.x"
+    "api/main.go": {
+      "runtime": "vercel-go@1.2.0"
     }
-  },
-  "builds": [{ "src": "vercel-functions/index.go", "use": "@vercel/go" }]
+  }
 }

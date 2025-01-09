@@ -1,8 +1,8 @@
 package drivens
 
-import "trilha/domain"
+import "trail/application/domain"
 
-type RouteRepository interface {
+type RoutesRepository interface {
 	GetAllRoutes() ([]domain.Route, error)
 	GetRouteByID(id string) (domain.Route, error)
 }

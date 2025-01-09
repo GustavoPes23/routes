@@ -1,23 +1,46 @@
 package handler
 
 import (
+	"context"
 	"net/http"
+	"trail/adapters"
+	"trail/application"
 
-	module "trilha/adapters/handler"
-
-	. "github.com/tbxark/g4vercel"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/fx"
 )
 
-var server = New()
+var ginEngine *gin.Engine
+
+func init() {
+	ctx := context.Background()
+
+	app := fx.New(
+		adapters.Module,
+		application.Module,
+		fx.Populate(&ginEngine),
+		fx.Invoke(startServer),
+	)
+
+	if err := app.Start(ctx); err != nil {
+		panic(err)
+	}
+}
+
+func startServer(lifecycle fx.Lifecycle, server *gin.Engine) {
+	lifecycle.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			go func() {
+				server.Run()
+			}()
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			return nil
+		},
+	})
+}
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	server.GET("/", func(c *Context) {
-		c.JSON(http.StatusOK, H{
-			"message": "Hello from Go with g4vercel!",
-		})
-	})
-
-	server.GET("/routes", module.Routes().Handler)
-	server.GET("/routes/:id", module.Route().Handler)
-	server.Handle(w, r)
+	ginEngine.ServeHTTP(w, r)
 }
